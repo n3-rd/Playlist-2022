@@ -1,4 +1,7 @@
 @import url("http://fonts.cdnfonts.com/css/mars-brands");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .font-serif {
   font-family: "Mars Brands", cursive;
 }
