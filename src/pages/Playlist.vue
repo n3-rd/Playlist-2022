@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="page">
+        <div class="page h-screen w-screen overflow-hidden">
           <div @click="stopSound" class="outline-text absolute bottom-0 h-16 w-24 cursor-pointer font-black stroke-black stroke-1 text-white ">Stop Music</div>
           <a href="https://github.com/n3-rd" target="_blank"><div class="outline-text absolute bottom-0 right-0 h-16 w-44 cursor-pointer font-black stroke-black stroke-1 text-white">Made by N3RD</div></a>
           <div class="outline-text absolute bottom-0 left-0 h-16 pl-3 w-52 font-black stroke-black stroke-1 text-white ">Swipe to chage slides</div>
@@ -246,8 +246,8 @@ sound.play();
    /* Styles here */
     .page {
      .slider-container{
-          height: 60vh;
-          width: 30rem;
+          height: 76vh;
+          width: 28rem;
      }
     }
 }
