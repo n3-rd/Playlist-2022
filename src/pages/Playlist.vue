@@ -1,6 +1,11 @@
 <template>
     <div>
+
         <div class="page">
+          <div @click="stopSound" class="outline-text absolute bottom-0 h-16 w-24 cursor-pointer font-black stroke-black stroke-1 text-white ">Stop Music</div>
+          <a href="https://github.com/n3-rd" target="_blank"><div class="outline-text absolute bottom-0 right-0 h-16 w-44 cursor-pointer font-black stroke-black stroke-1 text-white">Made by N3RD</div></a>
+          <div class="outline-text absolute bottom-0 left-0 h-16 pl-3 w-52 font-black stroke-black stroke-1 text-white ">Swipe to chage slides</div>
+          <!--  -->
             <div class="slider-container" v-if="this.songs!=null">
                 <swiper
                 :effect="'cards'"
@@ -33,7 +38,7 @@
             </span>
           </div>
 
-          <div class="track-play py-7">
+          <div class="track-play py-7 cursor-pointer" @click="playMusic(song.track.preview_url)">
             <div class="play-button">
               <svg width="47" height="47" viewBox="0 0 24 24"><path fill="#ffffff" d="m9.5 16.5l7-4.5l-7-4.5ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>
             </div>
@@ -45,8 +50,11 @@
     </div>
     </swiper-slide>
   </swiper>
+
             </div>
+
         </div>
+
     </div>
 </template>
 
@@ -64,13 +72,28 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css/effect-cards';
 
   import { EffectCards } from "swiper";
+  import {Howl, Howler} from 'howler';
 
+  function manualSlides(){
+    // listen for arrow keys
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') {
+        // go to next slide
+        this.$refs.mySwiper.swiper.slideNext();
+      }
+      if (e.key === 'ArrowLeft') {
+        // go to previous slide
+        this.$refs.mySwiper.swiper.slidePrev();
+      }
+    });
+  }
 
   export default{
     data(){
         return{
           modules: [EffectCards],
-            songs : null
+            songs : null,
+            songPlaying: true,
         }
 
     },
@@ -124,10 +147,23 @@ image.onload = function() {
         }, 100);
 
 
-      }
+      },
+      playMusic(sound){
+        Howler.stop();
+        var sound = new Howl({
+  src: [sound],
+  html5: true
+});
+
+sound.play();
+      },
+      stopSound(){
+        Howler.stop();
+      },
     },
     mounted(){
       this.fetchPlaylist();
+      manualSlides();
     }
 
   }
@@ -139,6 +175,9 @@ image.onload = function() {
 
 <style lang="scss" scoped>
     .page {
+      .outline-text{
+        -webkit-text-stroke: 1px #000;
+      }
         display: flex;
         flex-direction: column;
         align-items: center;
