@@ -103,7 +103,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
     },
     methods:{
       async fetchPlaylist(){
-        const res = await fetch(`https://n3rd-last-fm-api.glitch.me/getPlaylist?playlistId=3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
+        const res = await fetch(`https://rich-cyan-sturgeon-sock.cyclic.app/getPlaylist?playlistId=3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
         const data = await res.json();
         console.log(data.tracks.items);
         this.songs = data.tracks.items.sort(() => Math.random() - 0.5);
