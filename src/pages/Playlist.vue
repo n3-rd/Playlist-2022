@@ -1,12 +1,12 @@
 <template>
     <div>
 
-        <div class="page h-screen w-screen overflow-hidden">
+        <div class="page h-screen w-screen overflow-hidden flex flex-col items-center justify-center bg-[rgb(229, 231, 235)]">
           <div @click="stopSound" class="outline-text absolute bottom-0 h-16 w-24 cursor-pointer font-black stroke-black stroke-1 text-white ">Stop Music</div>
-          <a href="https://github.com/n3-rd" target="_blank"><div class="outline-text absolute bottom-0 right-0 h-16 w-44 cursor-pointer font-black stroke-black stroke-1 text-white">Made by N3RD</div></a>
-          <div class="outline-text absolute bottom-0 left-0 h-16 pl-3 w-52 font-black stroke-black stroke-1 text-white ">Swipe to chage slides</div>
+          <a href="https://github.com/n3-rd" target="_blank"><div class="outline-text absolute bottom-0 right-0 h-16 w-44 cursor-pointer font-black stroke-black stroke-1 text-white hidden md:block">Made by N3RD</div></a>
+          <div class="outline-text absolute bottom-0 left-0 h-16 pl-3 w-52 font-black stroke-black stroke-1 text-white hidden md:block">Swipe to chage slides</div>
           <!--  -->
-            <div class="slider-container" v-if="this.songs!=null">
+            <div class="slider-container h-[70vh] md:h-[60vh] w-[93vw] flex justify-center items-center" v-if="this.songs!=null">
                 <swiper
                 :effect="'cards'"
     :grabCursor="true"
@@ -178,21 +178,14 @@ sound.play();
       .outline-text{
         -webkit-text-stroke: 1px #000;
       }
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
-        background: rgb(229, 231, 235);
         transition: all 0.5s ease;
         .slider-container{
             // elegant card height and width
-            height: 60vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            // height: 60vh;
+            // width: 100vw;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
             .mySwiper{
                 width: 80%;
                 height: 90%;
