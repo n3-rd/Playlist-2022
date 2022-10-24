@@ -3,6 +3,10 @@
 
         <div class="page h-screen w-screen overflow-hidden flex flex-col items-center justify-center bg-[rgb(229, 231, 235)]">
 
+          <div class="loading h-screen w-screen fixed flex justify-center items-center z-[999]" v-if="loading">
+            <div class="loader w-[80%] h-32 bg-black text-white font-bold uppercase text-[5rem] text-center">loading</div>
+          </div>
+
           <div class="absolute top-[1rem] right-[1rem] h-16 text-1xl font-semibold uppercase cursor-pointer outline-text text-white" @click="togglePlaylistInput()">Use your own playlist</div>
 
           <div class="playlist-input" v-if="playlistInputContainer">
@@ -104,6 +108,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
             songPlaying: true,
             playlistId: '',
             playlistInputContainer: false,
+            loading: true,
         }
 
     },
@@ -118,6 +123,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
         console.log(data.tracks.items);
         this.songs = data.tracks.items.sort(() => Math.random() - 0.5);
         this.playlistInputContainer = false;
+        this.loading = false;
+
         setTimeout(() => {
           this.getCurrentSlideColor()
         }, 100);
@@ -156,7 +163,6 @@ image.onload = function() {
   document.querySelector('.page').style.background = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 };
         }, 100);
-
 
       },
       playMusic(sound){
@@ -232,19 +238,7 @@ sound.play();
         letter-spacing: 0.1em;
         text-align: center;
         padding: 0 1rem;
-        // .image-container{
-        //   height: 70%;
-        //   width: 100%;
-        //   background-size: cover;
-        //   background-position: center;
-        //   background-repeat: no-repeat;
-        // }
-        // .details{
-        //   // background: #fff;
-        //   height: 30%;
-        //   width: 100%;
-        //   color: #000;
-        // }
+
     }
 
     // Tablet
