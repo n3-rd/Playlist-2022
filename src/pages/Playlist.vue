@@ -124,6 +124,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
         this.songs = data.tracks.items.sort(() => Math.random() - 0.5);
         this.playlistInputContainer = false;
         this.loading = false;
+        this.setLocalStorage();
+      this.playlistId = localStorage.getItem('playlistId');
 
         setTimeout(() => {
           this.getCurrentSlideColor()
@@ -179,10 +181,23 @@ sound.play();
       },
       togglePlaylistInput(){
         this.playlistInputContainer = !this.playlistInputContainer;
-      }
+      },
+      setLocalStorage(){
+        if(!localStorage.getItem('playlistId')){
+          localStorage.setItem('playlistId', `3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
+        }
+        else{
+          if(this.playlistId != null){
+            localStorage.setItem('playlistId', this.playlistId);
+          }
+          // localStorage.setItem('playlistId', this.playlistId);
+        }
+      },
     },
     mounted(){
-      this.fetchPlaylist(`3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
+      this.playlistId = localStorage.getItem('playlistId');
+      this.setLocalStorage()
+      this.fetchPlaylist(this.playlistId);
       manualSlides();
     }
 
@@ -200,17 +215,10 @@ sound.play();
       }
         transition: all 0.5s ease;
         .slider-container{
-            // elegant card height and width
-            // height: 60vh;
-            // width: 100vw;
-            // display: flex;
-            // justify-content: center;
-            // align-items: center;
-            .mySwiper{
+              .mySwiper{
                 width: 80%;
                 height: 90%;
             }
-            // background: rgb(229, 231, 235);
         }
     }
 
