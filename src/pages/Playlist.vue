@@ -2,6 +2,14 @@
     <div>
 
         <div class="page h-screen w-screen overflow-hidden flex flex-col items-center justify-center bg-[rgb(229, 231, 235)]">
+
+          <div class="absolute top-[1rem] right-[1rem] h-16 text-1xl font-semibold uppercase cursor-pointer outline-text text-white" @click="togglePlaylistInput()">Use your own playlist</div>
+
+          <div class="playlist-input" v-if="playlistInputContainer">
+            <input type="text" class="w-96 px-4 h-16 text-2xl font-semibold uppercase outline-none" placeholder="Enter your playlist ID" v-model="playlistId" @keyup.enter="fetchPlaylist(playlistId)"/>
+            <div class="w-96 h-16 text-2xl font-semibold uppercase cursor-pointer flex justify-center items-center bg-black text-white" @click="fetchPlaylist(playlistId)">Fetch playlist</div>
+          </div>
+
           <div @click="stopSound" class="outline-text absolute bottom-0 h-16 w-24 cursor-pointer font-black stroke-black stroke-1 text-white ">Stop Music</div>
           <a href="https://github.com/n3-rd" target="_blank"><div class="outline-text absolute bottom-0 right-0 h-16 w-44 cursor-pointer font-black stroke-black stroke-1 text-white hidden md:block">Made by N3RD</div></a>
           <div class="outline-text absolute bottom-0 left-0 h-16 pl-3 w-52 font-black stroke-black stroke-1 text-white hidden md:block">Swipe to chage slides</div>
@@ -94,6 +102,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
           modules: [EffectCards],
             songs : null,
             songPlaying: true,
+            playlistId: '',
+            playlistInputContainer: false,
         }
 
     },
@@ -102,11 +112,12 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
         SwiperSlide
     },
     methods:{
-      async fetchPlaylist(){
-        const res = await fetch(`https://rich-cyan-sturgeon-sock.cyclic.app/getPlaylist?playlistId=3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
+      async fetchPlaylist(playlistId){
+        const res = await fetch(`https://rich-cyan-sturgeon-sock.cyclic.app/getPlaylist?playlistId=${playlistId}`);
         const data = await res.json();
         console.log(data.tracks.items);
         this.songs = data.tracks.items.sort(() => Math.random() - 0.5);
+        this.playlistInputContainer = false;
         setTimeout(() => {
           this.getCurrentSlideColor()
         }, 100);
@@ -160,9 +171,12 @@ sound.play();
       stopSound(){
         Howler.stop();
       },
+      togglePlaylistInput(){
+        this.playlistInputContainer = !this.playlistInputContainer;
+      }
     },
     mounted(){
-      this.fetchPlaylist();
+      this.fetchPlaylist(`3aqKMnIgBOR3HMROvJ172x?si=3f643d2c069f4256`);
       manualSlides();
     }
 
